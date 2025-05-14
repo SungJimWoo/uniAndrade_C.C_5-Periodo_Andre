@@ -1,5 +1,5 @@
 class Personagem:
-    def init(self, nome):
+    def __init__(self, nome):
         self.nome = nome
         self.saude = 10
         self.vivo = True
@@ -10,7 +10,12 @@ class Personagem:
         print(f"Dano {pocao.potencia} saúde {self.saude}")
 
 class PocaoVerde:
-    def init(self, tipo, potencia):
+    def __init__(self, tipo, potencia):
+        self.tipo = tipo
+        self.potencia = potencia
+
+class PocaoRoxa:
+    def __init__(self, tipo, potencia):
         self.tipo = tipo
         self.potencia = potencia
 
@@ -19,7 +24,8 @@ class PocaoVerde:
 #Instanciar Jogador
 p1 = Personagem("Chaves")
 pocao1 = PocaoVerde("Cura", 15)
-#p1.usar_pocao(pocao1),
+pocao2 = PocaoRoxa("Cura", 15)
+p1.usar_pocao(pocao1),
 
 del p1
 print(pocao1)
