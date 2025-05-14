@@ -23,3 +23,11 @@ pocao1 = PocaoVerde("Cura", 15)
 
 del p1
 print(pocao1)
+
+# Se o personagem ainda está vivo, decremente ao usar a poção veneno
+    # Pode usar poção veneno
+    # Pode usar poção saúde
+# Se a saúde for <= 0
+    # Personagem vivo = False
+    # Informe personagem está morto, foi de "arrasta"
+    # Cancele a possibilidade de incrementar ou decrementar saúde
