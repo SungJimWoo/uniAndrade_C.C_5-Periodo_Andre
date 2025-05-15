@@ -5,12 +5,27 @@ class Personagem:
         self.vivo = True
 
     def usar_pocao(self, pocao):
-        self.saude += pocao.potencia
-        print(f"Personagem {self.nome} usou poção de {pocao.tipo}")
-        if pocao1:
-            print(f"Cura {pocao.potencia} saúde {self.saude}")
-        elif pocao2:
-            print(f"Veneno {pocao.potencia} saúde {self.saude}")
+        if not self.vivo:
+            print(f"{self.nome} está morto e não pode usar poções.")
+            return
+
+        if pocao.tipo == "Cura":
+            if self.saude == 10:
+                print(f"{self.nome} já está com a vida cheia")
+            else:
+                self.saude -= pocao.potencia
+                if self.saude > 10:
+                    self.saude = 10  # Limita a saúde máxima
+                    print(f"{self.nome} usou poção de cura: +{pocao.potencia} de saúde. Saúde atual: {self.saude}")
+
+        elif pocao.tipo == "Dano":
+            self.saude -= pocao.potencia
+            print(f"{self.nome} usou poção de veneno: -{pocao.potencia} de saúde. Saúde atual: {self.saude}")
+
+        if self.saude <= 0:
+            self.vivo = False
+            print(f"{self.nome} foi de arrasta!")
+            
 
 class PocaoVerde:
     def __init__(self, tipo, potencia):
@@ -22,15 +37,14 @@ class PocaoRoxa:
         self.tipo = tipo
         self.potencia = potencia
 
-#Crie uma nova PocaoRoxa
-
-#Instanciar Jogador
+# Criando personagem e poções
 p1 = Personagem("Chaves")
 pocao1 = PocaoVerde("Cura", 15)
-pocao2 = PocaoRoxa("Veneno", 5)
-p1.usar_pocao(pocao2),
+pocao2 = PocaoRoxa("Dano", 12)
 
-
+# Teste de uso das poções
+p1.usar_pocao(pocao1)  # Aplica dano
+p1.usar_pocao(pocao2)  # Se ainda estiver vivo, aplica cura
 
 # Se o personagem ainda está vivo, decremente ao usar a poção veneno
     # Pode usar poção veneno
