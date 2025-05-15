@@ -6,8 +6,11 @@ class Personagem:
 
     def usar_pocao(self, pocao):
         self.saude += pocao.potencia
-        print(f"Personagem {self.nome} usou poção {pocao.tipo}")
-        print(f"Dano {pocao.potencia} saúde {self.saude}")
+        print(f"Personagem {self.nome} usou poção de {pocao.tipo}")
+        if pocao1:
+            print(f"Cura {pocao.potencia} saúde {self.saude}")
+        elif pocao2:
+            print(f"Veneno {pocao.potencia} saúde {self.saude}")
 
 class PocaoVerde:
     def __init__(self, tipo, potencia):
@@ -24,11 +27,10 @@ class PocaoRoxa:
 #Instanciar Jogador
 p1 = Personagem("Chaves")
 pocao1 = PocaoVerde("Cura", 15)
-pocao2 = PocaoRoxa("Cura", 15)
-p1.usar_pocao(pocao1),
+pocao2 = PocaoRoxa("Veneno", 5)
+p1.usar_pocao(pocao2),
 
-del p1
-print(pocao1)
+
 
 # Se o personagem ainda está vivo, decremente ao usar a poção veneno
     # Pode usar poção veneno
