@@ -1,26 +1,27 @@
-from jogador import Jogador
-
-class Cavaleiro(Jogador):
-    def __init__(self, nome: str, dano: int):
+from jogadores.jogador import jogador
+class Cavaleiro(jogador): # Herança
+    def __init__(self, nome:str, dano:int, armadura="Diamante", resistencia=85):
         super().__init__(nome, dano)
-        self.__saude = 100 # Encapsulamento
+        self.armadura = armadura #encapsulamento
+        self.resistencia = resistencia # atributos extras
+        super().__init__(nome, dano)
 
-    @property # Decorador retorna apenas como propriedade
+    @property # Decorador retorna apenas com propriedade
     def saude(self):
         return self.__saude
 
-    @saude.setter # Decorador retorna apenas como propriedade
+    @saude.setter # Decorador retorna apenas com propriedade
     def saude(self, valor):
-        self.__saude += max(0, valor)
+        self.saude += max(0, valor)
 
     def atacar(self):
-        print("Atacar Polimórfico")
-        print(f"{self.nome} atacou")
+        print("Atacar Polimorfico") 
+        print(f"{self.nome} atacou!")
 
     def defender(self):
-        print("Defender Polimórfico")
-        print(f"{self.nome} defendeu")
+        print("Defender Polimorfico")
+        print(f"{self.nome} defendeu!")
 
 if __name__ == "__main__":
-    cavaleiro = Cavaleiro("Rei Arthur", 80)
-    cavaleiro.atacar
+    cavaleiro = Cavaleiro("rei Arthur", 80)
+    cavaleiro.atacar()
