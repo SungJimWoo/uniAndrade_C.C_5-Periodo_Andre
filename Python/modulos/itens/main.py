@@ -1,16 +1,14 @@
 import player
-# from player import atacar, dados, equipar
+from player import atacar, dados
+from player import *  # importe tudo
 
 def main():
-    # atacar
-    # dados
-    # equipar
+    atacar()
+    dados()
     player.atacar()
     player.dados()
-    player.equipar()
 
 if __name__ == "__main__":
-    ...
-
-# print("Eu sou o main")
-# print(__name__) 
+    main()
+    print("Eu sou o main")
+    print(__name__)

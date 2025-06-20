@@ -1,55 +1,105 @@
-class Personagem:
-    def __init__(self, nome):
+import os
+import time
+
+class Item:
+    def __init__(self, tipo: str, efeito: int):
+        self.tipo = tipo
+        self.efeito = efeito
+
+class Inventario:
+    def __init__(self):
+        self.itens = []
+
+    def adicionar_item(self, item: Item):
+        if item:
+            self.itens.append(item)
+
+    def listar_itens(self):
+        print("\nInventário:")
+        if not self.itens:
+            print("Vazio.")
+        for item in self.itens:
+            print(f"- {item.tipo} (Efeito: {item.efeito})")
+
+class Armadura:
+    def __init__(self, nome: str, protecao: int):
         self.nome = nome
-        self.saude = 10
+        self.protecao = protecao
+
+class Pocao:
+    def __init__(self, tipo, valor):
+        self.tipo = tipo
+        self.valor = valor
+
+class Personagem:
+    def __init__(self, nome, nome_armadura: str = "Armadura Comum", protecao: int = 10):
+        self.nome = nome
+        self.saude = 100
         self.vivo = True
+        self.armadura = Armadura(nome_armadura, protecao)
+        self.inventario = Inventario()
+
+    def mostrar_vida(self):
+        barra = int(self.saude / 5)
+        print(f"\n{self.nome} | Saúde: {self.saude}/100")
+        print("[" + "█" * barra + " " * (20 - barra) + "]")
+
+    def mostrar_status(self):
+        estado = "VIVO" if self.vivo else "MORTO"
+        print(f"\nStatus de {self.nome}")
+        print(f"- Estado: {estado}")
+        print(f"- Armadura: {self.armadura.nome} (+{self.armadura.protecao})")
+        self.mostrar_vida()
+        self.inventario.listar_itens()
 
     def usar_pocao(self, pocao):
         if not self.vivo:
             print(f"{self.nome} está morto e não pode usar poções.")
             return
 
+        print(f"\n{self.nome} usou Poção {pocao.tipo}")
+
         if pocao.tipo == "Cura":
-            if self.saude == 10:
-                print(f"{self.nome} já está com a vida cheia")
-            else:
-                self.saude -= pocao.potencia
-                if self.saude > 10:
-                    self.saude = 10  # Limita a saúde máxima
-                    print(f"{self.nome} usou poção de cura: +{pocao.potencia} de saúde. Saúde atual: {self.saude}")
-
+            cura = min(pocao.valor, 100 - self.saude)
+            self.saude += cura
+            print(f"Curou {cura} pontos de vida.")
         elif pocao.tipo == "Dano":
-            self.saude -= pocao.potencia
-            print(f"{self.nome} usou poção de veneno: -{pocao.potencia} de saúde. Saúde atual: {self.saude}")
+            self.saude -= pocao.valor
+            print(f"Sofreu {pocao.valor} de dano mágico.")
+            if self.saude <= 0:
+                self.saude = 0
+                self.vivo = False
+                print(f"{self.nome} morreu!")
+        else:
+            print(f"Tipo de poção '{pocao.tipo}' desconhecido.")
 
-        if self.saude <= 0:
-            self.vivo = False
-            print(f"{self.nome} foi de arrasta!")
-            
+        self.mostrar_vida()
 
-class PocaoVerde:
-    def __init__(self, tipo, potencia):
-        self.tipo = tipo
-        self.potencia = potencia
+# ========== INÍCIO ==========
 
-class PocaoRoxa:
-    def __init__(self, tipo, potencia):
-        self.tipo = tipo
-        self.potencia = potencia
+p1 = Personagem("Persel", "Armadura do Rei", 15)
+p1.inventario.adicionar_item(Item("Faca Tramontina", 120))
+p1.inventario.adicionar_item(Item("Escudo do Rei", 90))
 
-# Criando personagem e poções
-p1 = Personagem("Chaves")
-pocao1 = PocaoVerde("Cura", 15)
-pocao2 = PocaoRoxa("Dano", 12)
+pocao_verde = Pocao("Cura", 20)   # Cura fixa de 20
+pocao_roxa = Pocao("Dano", 30)   # Dano mágico fixo de 30
 
-# Teste de uso das poções
-p1.usar_pocao(pocao1)  # Aplica dano
-p1.usar_pocao(pocao2)  # Se ainda estiver vivo, aplica cura
+while p1.vivo:
+    os.system("cls" if os.name == "nt" else "clear")
+    p1.mostrar_status()
 
-# Se o personagem ainda está vivo, decremente ao usar a poção veneno
-    # Pode usar poção veneno
-    # Pode usar poção saúde
-# Se a saúde for <= 0
-    # Personagem vivo = False
-    # Informe personagem está morto, foi de "arrasta"
-    # Cancele a possibilidade de incrementar ou decrementar saúde
+    print("\nEscolha uma poção:")
+    print("1 - Poção Verde (+20)")
+    print("2 - Poção Roxa (-30)")
+    escolha = input("Digite sua escolha: ")
+
+    if escolha == "1":
+        p1.usar_pocao(pocao_verde)
+    elif escolha == "2":
+        p1.usar_pocao(pocao_roxa)
+    else:
+        print("Opção inválida!")
+
+    time.sleep(1)
+
+print("\nFim do jogo.")
