@@ -1,4 +1,4 @@
-from .jogador import jogador
+from .jogador import Jogador
 from .cavaleiro import Cavaleiro
 
 __all__ = [

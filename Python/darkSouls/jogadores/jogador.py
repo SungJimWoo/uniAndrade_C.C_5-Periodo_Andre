@@ -1,28 +1,29 @@
 from abc import ABC, abstractmethod
-class jogador:
-    def __init__(self, nome:str, dano:int):
+
+class Jogador(ABC):
+    def __init__(self, nome: str, dano: int):
         self.nome = nome
         self.dano = dano
-        self.__saude = 100 #encapsulamento
+        self.__saude = 100  # Atributo privado com encapsulamento
+        self.inventario = []  # Inicialização aqui já evita erro
+        self.dinheiro = 0     # Para compras e recompensas
+        self.vida_maxima = 100 
 
-        @property # Encapsulamento com property
-        def saude(self) -> int:
-            return self.__saude
+    @property
+    def saude(self) -> int:
+        return self.__saude
 
-        @saude.setter 
-        def saude(self, valor: int):
-            # Garante que a vida nunca seja negativa
-            self.__saude = max(0, valor)
+    @saude.setter
+    def saude(self, valor: int):
+        self.__saude = max(0, valor)  # Nunca abaixo de zero
 
-        @abstractmethod # Métodos que as subclasses DEVEM sobrescrever
-        def atacar(self, inimigo): 
-            print(f"{self.nome} atacou {inimigo.nome}!")
+    @abstractmethod
+    def atacar(self, inimigo):
+        pass
 
-        @abstractmethod # Obriga as classes filhas a implementarem
-        def defender(self):
-            self.saude -= dano
-            print(f"{self.nome} defendeu o ataque! Vida agora: {self.saude}")
+    @abstractmethod
+    def defender(self, dano: int):
+        pass
 
-        def esta_vivo(self) -> bool:
-            # Retorna True se a saúde for maior que zero.
-            return self.saude > 0
+    def esta_vivo(self) -> bool:
+        return self.saude > 0

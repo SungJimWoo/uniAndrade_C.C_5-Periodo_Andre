@@ -1,4 +1,4 @@
-from minion import Minion
+from .minion import Minion
 
 class VampiroFraco(Minion):
     def __init__(self):
