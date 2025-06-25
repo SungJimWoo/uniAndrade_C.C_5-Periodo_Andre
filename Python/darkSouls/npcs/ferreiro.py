@@ -1,4 +1,5 @@
-from itens import item
+from itens.arma import armas_disponiveis
+from itens.armadura import armaduras_disponiveis
 
 class Ferreiro:
     def __init__(self):

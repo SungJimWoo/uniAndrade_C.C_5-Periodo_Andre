@@ -1,4 +1,3 @@
-from jogadores import jogador
 class Item:
     def __init__(self, nome: str, tipo: str, preco: int):
         self.nome = nome

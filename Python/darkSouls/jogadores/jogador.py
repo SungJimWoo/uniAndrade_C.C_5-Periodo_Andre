@@ -20,7 +20,7 @@ class jogador:
 
         @abstractmethod # Obriga as classes filhas a implementarem
         def defender(self):
-            self.vida -= dano
+            self.saude -= dano
             print(f"{self.nome} defendeu o ataque! Vida agora: {self.saude}")
 
         def esta_vivo(self) -> bool:
