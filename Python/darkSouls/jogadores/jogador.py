@@ -5,23 +5,24 @@ class jogador:
         self.dano = dano
         self.__saude = 100 #encapsulamento
 
-        @property # Decorador retorna apenas com propriedade
-        def saude(self):
+        @property # Encapsulamento com property
+        def saude(self) -> int:
             return self.__saude
 
-        @saude.setter # Decorador retorna apenas com propriedade
-        def set_saude(self, valor):
-            self.saude += max(0, valor)
+        @saude.setter 
+        def saude(self, valor: int):
+            # Garante que a vida nunca seja negativa
+            self.__saude = max(0, valor)
 
-        @abstractmethod # Obriga as classes filhas a implementarem
-        def atacar(self): 
-            print(f"{self.nome} atacou!")
+        @abstractmethod # Métodos que as subclasses DEVEM sobrescrever
+        def atacar(self, inimigo): 
+            print(f"{self.nome} atacou {inimigo.nome}!")
 
         @abstractmethod # Obriga as classes filhas a implementarem
         def defender(self):
-            print(f"{self.nome} defendeu!")
+            self.vida -= dano
+            print(f"{self.nome} defendeu o ataque! Vida agora: {self.saude}")
 
-if __name__ == "__main__":
-    p1 = jogador("jhow", 50)
-    p1.atacar()
-    print(p1.get_saude())
+        def esta_vivo(self) -> bool:
+            # Retorna True se a saúde for maior que zero.
+            return self.saude > 0

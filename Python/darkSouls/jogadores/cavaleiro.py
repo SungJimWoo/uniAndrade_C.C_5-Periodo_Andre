@@ -1,27 +1,17 @@
 from jogadores.jogador import jogador
-class Cavaleiro(jogador): # Herança
-    def __init__(self, nome:str, dano:int, armadura="Diamante", resistencia=85):
+
+class Cavaleiro(jogador):
+    def __init__(self, nome: str, dano: int = 20, armadura: str = "Diamante", resistencia: int = 85):
         super().__init__(nome, dano)
-        self.armadura = armadura #encapsulamento
-        self.resistencia = resistencia # atributos extras
-        super().__init__(nome, dano)
+        self.armadura = armadura
+        self.resistencia = resistencia
 
-    @property # Decorador retorna apenas com propriedade
-    def saude(self):
-        return self.__saude
+    # sobrescrevendo métodos abstratos
+    def atacar(self, inimigo):
+        print(f"{self.nome} desfere um golpe poderoso!")
+        inimigo.defender(self.dano)
 
-    @saude.setter # Decorador retorna apenas com propriedade
-    def saude(self, valor):
-        self.saude += max(0, valor)
-
-    def atacar(self):
-        print("Atacar Polimorfico") 
-        print(f"{self.nome} atacou!")
-
-    def defender(self):
-        print("Defender Polimorfico")
-        print(f"{self.nome} defendeu!")
-
-if __name__ == "__main__":
-    cavaleiro = Cavaleiro("rei Arthur", 80)
-    cavaleiro.atacar()
+    def defender(self, dano: int):
+        dano_recebido = max(0, dano - self.resistencia // 10)
+        self.saude = self.saude - dano_recebido
+        print(f"{self.nome} bloqueia com {self.armadura}! Sofre {dano_recebido}. Vida: {self.saude}")
