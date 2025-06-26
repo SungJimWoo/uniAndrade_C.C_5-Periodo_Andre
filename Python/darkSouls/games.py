@@ -18,7 +18,7 @@ def barra_vida(atual, maximo, tamanho=30):
 def mostrar_menu_principal(jogador):
     print("\n" + "-"*60)
     print(f"Vida : {barra_vida(jogador.saude, 100)}")
-    print(f"Esp  : {barra_vida(0, 100)}")  # Esp pode ser energia/magia
+    print(f"Esp  : {barra_vida(0, 100)}")
     print(f"Gold : {jogador.dinheiro} G")
     print("-"*60)
     print("1. Iniciar batalha")
@@ -37,17 +37,16 @@ def consultar_inv(inv, cav=None):
         for i, item in enumerate(inv, 1):
             tipo = getattr(item, 'tipo', '')
             if tipo == "poção":
-                print(f"{i}. {item.nome} (+{item.cura}) – qtd {item.quantidade}")
+                print(f"{i}. {item.nome} (+{item.valor}) – qtd {item.quantidade}")
             elif tipo == "arma":
                 print(f"{i}. {item.nome} (arma) – dano {item.dano}")
             elif tipo == "armadura":
-                print(f"{i}. {item.nome} (armadura) – defesa {item.reducao}%")
+                print(f"{i}. {item.nome} (armadura) – defesa +{item.defesa_extra}")
 
     if cav is None:
         input("Enter para voltar…")
         return
 
-    # Equipamentos atuais
     print("\n--- EQUIPADO ---")
     print(f"Arma equipada    : {getattr(cav, 'arma_nome', 'Nenhuma')}")
     print(f"Armadura equipada: {getattr(cav, 'armadura_nome', 'Nenhuma')}")
@@ -61,19 +60,18 @@ def consultar_inv(inv, cav=None):
         tipo = getattr(item, 'tipo', '')
         if tipo == "poção":
             item.usar(cav)
-            if item.quantidade == 0:
+            if item.quantidade <= 0:
                 inv.pop(idx)
         elif tipo == "arma":
             cav.dano = item.dano
             cav.arma_nome = item.nome
             print(f"{item.nome} equipada! Dano agora: {cav.dano}")
         elif tipo == "armadura":
-            cav.reducao_dano = item.reducao
+            cav.reducao_dano = item.defesa_extra
             cav.armadura_nome = item.nome
             print(f"{item.nome} equipada! Redução de dano: {cav.reducao_dano}%")
     else:
         print("Opção inválida.")
-
 
 def escolher_inimigo():
     print("\n--- ESCOLHA SEU DESAFIO ---")
@@ -109,13 +107,7 @@ def batalha(jogador, inimigo):
         elif acao == "2":
             jogador.defender(inimigo.ataque)
         elif acao == "3":
-            mostrar_inventario(jogador)
-            escolha = input("Escolha o número do item (ou Enter para voltar): ")
-            if escolha.isdigit():
-                idx = int(escolha) - 1
-                if 0 <= idx < len(jogador.inventario):
-                    item = jogador.inventario.pop(idx)
-                    item.usar(jogador)
+            consultar_inv(jogador.inventario, jogador)
         elif acao == "4":
             print("Você fugiu da batalha.")
             return

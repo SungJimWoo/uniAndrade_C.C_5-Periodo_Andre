@@ -1,4 +1,4 @@
-from itens.pocao import pocoes_disponiveis
+from itens.pocao import pocoes_disponiveis, Pocao
 
 class Loja:
     def listar_pocoes(self):
@@ -8,11 +8,13 @@ class Loja:
 
     def vender_pocao(self, jogador, escolha: int):
         if 1 <= escolha <= len(pocoes_disponiveis):
-            pocao = pocoes_disponiveis[escolha-1]
-            if jogador.dinheiro >= pocao.preco:
-                jogador.dinheiro -= pocao.preco
-                jogador.inventario.append(pocao)
-                print(f"{pocao.nome} foi adicionada ao seu inventário.")
+            base = pocoes_disponiveis[escolha - 1]
+            nova_pocao = Pocao(base.nome, base.efeito, base.valor, base.preco)
+
+            if jogador.dinheiro >= nova_pocao.preco:
+                jogador.dinheiro -= nova_pocao.preco
+                jogador.inventario.append(nova_pocao)
+                print(f"{nova_pocao.nome} foi adicionada ao seu inventário.")
             else:
                 print("Você não tem ouro suficiente.")
         else:

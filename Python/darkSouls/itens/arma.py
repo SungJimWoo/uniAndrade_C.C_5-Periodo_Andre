@@ -1,14 +1,14 @@
 from .item import Item
 
 class Arma(Item):
-    def __init__(self, nome: str, dano_extra: int, preco: int):
+    def __init__(self, nome: str, dano: int, preco: int):
         super().__init__(nome, tipo="arma", preco=preco)
-        self.dano_extra = dano_extra
+        self.dano = dano
 
     def usar(self, jogador):
-        jogador.dano += self.dano_extra
+        jogador.dano += self.dano
         jogador.arma_atual = self.nome
-        print(f"{jogador.nome} equipou {self.nome}! Dano aumentado em {self.dano_extra}.")
+        print(f"{jogador.nome} equipou {self.nome}! Dano aumentado em {self.dano}.")
 
 # Lista de armas disponíveis
 armas_disponiveis = [
