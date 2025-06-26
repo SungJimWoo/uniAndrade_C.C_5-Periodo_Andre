@@ -6,9 +6,15 @@ class Ferreiro:
         self.inventario = armas_disponiveis + armaduras_disponiveis
 
     def listar_itens(self):
-        print("\n--- Itens disponíveis no ferreiro ---")
+        print("\n--- Armas disponíveis ---")
         for i, item in enumerate(self.inventario, 1):
-            print(f"{i}. {item.nome} ({item.tipo}) - Preço: {item.preco}")
+            if item.tipo == "arma":
+                print(f"{i}. {item.nome} – Dano: {item.dano} – {item.preco}G")
+
+        print("\n--- Armaduras disponíveis ---")
+        for i, item in enumerate(self.inventario, 1):
+            if item.tipo == "armadura":
+                print(f"{i}. {item.nome} – Defesa: {item.defesa_extra} – {item.preco}G")
 
     def vender(self, jogador, escolha: int):
         if 1 <= escolha <= len(self.inventario):
@@ -18,6 +24,9 @@ class Ferreiro:
                 jogador.inventario.append(item)
                 print(f"{item.nome} foi adicionado ao seu inventário.")
             else:
-                print("Você não tem ouro suficiente.")
+                falta = item.preco - jogador.dinheiro
+                print(f"\nVocê não tem ouro suficiente. Faltam {falta}G.")
+                input("Pressione Enter para continuar...")
         else:
             print("Escolha inválida.")
+            input("Pressione Enter para continuar...")

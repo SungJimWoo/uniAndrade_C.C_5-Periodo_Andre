@@ -22,7 +22,7 @@ class Pocao(Item):
 # Lista base de poções (modelos)
 pocoes_disponiveis = [
     Pocao("Poção Fraca", "cura", 20, 10),
-    Pocao("Poção Média", "cura", 50, 25),
-    Pocao("Poção Forte", "cura", 100, 50),
-    Pocao("Poção de Força", "buff", 10, 20)
+    Pocao("Poção Média", "cura", 50, 35),
+    Pocao("Poção Forte", "cura", 100, 60),
+    Pocao("Poção de Força", "buff", 20, 100)
 ]

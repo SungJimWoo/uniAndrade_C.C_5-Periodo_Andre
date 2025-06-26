@@ -4,7 +4,12 @@ class Loja:
     def listar_pocoes(self):
         print("\n--- Loja de Poções ---")
         for i, pocao in enumerate(pocoes_disponiveis, 1):
-            print(f"{i}. {pocao.nome} ({pocao.efeito}) - Valor: {pocao.valor} - Preço: {pocao.preco}")
+            if pocao.efeito == "cura":
+                print(f"{i}. {pocao.nome} ({pocao.efeito}) - Cura: {pocao.valor} - Preço: {pocao.preco}")
+            elif pocao.efeito == "buff":
+                print(f"{i}. {pocao.nome} ({pocao.efeito}) - Bônus: +{pocao.valor} dano - Preço: {pocao.preco}")
+            else:
+                print(f"{i}. {pocao.nome} ({pocao.efeito}) - Valor: {pocao.valor} - Preço: {pocao.preco}")
 
     def vender_pocao(self, jogador, escolha: int):
         if 1 <= escolha <= len(pocoes_disponiveis):
@@ -16,6 +21,8 @@ class Loja:
                 jogador.inventario.append(nova_pocao)
                 print(f"{nova_pocao.nome} foi adicionada ao seu inventário.")
             else:
-                print("Você não tem ouro suficiente.")
+                print("\nVocê não tem ouro suficiente.")
+                input("Pressione Enter para continuar...")
         else:
-            print("Escolha inválida.")
+            print("\nEscolha inválida.")
+            input("Pressione Enter para continuar...")

@@ -4,7 +4,7 @@ class Jogador(ABC):
     def __init__(self, nome: str, dano: int):
         self.nome = nome
         self.dano = dano
-        self.__saude = 100  # Atributo privado com encapsulamento
+        self.__saude = 120  # Atributo privado com encapsulamento
         self.inventario = []  # Inicialização aqui já evita erro
         self.dinheiro = 0     # Para compras e recompensas
         self.vida_maxima = 100 
@@ -25,5 +25,5 @@ class Jogador(ABC):
     def defender(self, dano: int):
         pass
 
-    def esta_vivo(self) -> bool:
+    def esta_vivo(self):
         return self.saude > 0

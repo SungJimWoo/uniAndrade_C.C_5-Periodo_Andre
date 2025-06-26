@@ -6,6 +6,8 @@ class Estalagem:
         if jogador.dinheiro >= self.preco:
             jogador.dinheiro -= self.preco
             jogador.saude = jogador.vida_maxima
-            print(f"{jogador.nome} descansou e recuperou toda a vida!")
+            print(f"\n{jogador.nome} descansou e recuperou toda a vida!") 
+            input("Pressione Enter para continuar...")
         else:
-            print("Você não tem ouro suficiente para descansar.")
+            print("\nVocê não tem ouro suficiente para descansar.")
+            input("Pressione Enter para continuar...")

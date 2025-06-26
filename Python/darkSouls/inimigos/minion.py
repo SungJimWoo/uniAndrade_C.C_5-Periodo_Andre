@@ -6,8 +6,8 @@ class Minion:
         self.recompensa = recompensa
 
     def atacar(self, jogador):
+        jogador.saude -= self.dano
         print(f"{self.nome} ataca {jogador.nome}, causando {self.dano} de dano!")
-        jogador.defender(self.dano)
 
     def defender(self, dano_recebido):
         self.vida -= dano_recebido

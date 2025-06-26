@@ -12,8 +12,8 @@ class Arma(Item):
 
 # Lista de armas disponíveis
 armas_disponiveis = [
-    Arma("Espada de Ferro", 10, 25),
-    Arma("Lança Rúnica", 15, 40),
-    Arma("Machado Pesado", 20, 60),
-    Arma("Espada do Abismo", 50, 250)  # NOVA arma poderosa, preço alto!
+    Arma("Espada de Ferro", 30, 50),
+    Arma("Lança Rúnica", 45, 80),
+    Arma("Machado Pesado", 60, 100),
+    Arma("Espada do Abismo", 100, 325)  # NOVA arma poderosa, preço alto!
 ]

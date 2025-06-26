@@ -12,8 +12,8 @@ class Armadura(Item):
 
 # Lista de armaduras disponíveis
 armaduras_disponiveis = [
-    Armadura("Cota de Couro", 5, 20),
-    Armadura("Armadura de Aço", 10, 40),
-    Armadura("Armadura Real", 15, 60),
+    Armadura("Cota de Couro", 5, 40),
+    Armadura("Armadura de Aço", 10, 70),
+    Armadura("Armadura Real", 15, 100),
     Armadura("Armadura do Dragão", 40, 220)  # NOVA armadura poderosa, preço alto!
 ]
